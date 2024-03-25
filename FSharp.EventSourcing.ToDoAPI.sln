@@ -2,9 +2,20 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1159D1A4-2D9B-4D25-B997-D1007EA66F27}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.EventSourcing.ToDo.Domain", "src\FSharp.EventSourcing.ToDo.Domain\FSharp.EventSourcing.ToDo.Domain.fsproj", "{00EBA5F6-50DE-415E-87EC-712E1D9A863E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{00EBA5F6-50DE-415E-87EC-712E1D9A863E} = {1159D1A4-2D9B-4D25-B997-D1007EA66F27}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00EBA5F6-50DE-415E-87EC-712E1D9A863E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EBA5F6-50DE-415E-87EC-712E1D9A863E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EBA5F6-50DE-415E-87EC-712E1D9A863E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EBA5F6-50DE-415E-87EC-712E1D9A863E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
