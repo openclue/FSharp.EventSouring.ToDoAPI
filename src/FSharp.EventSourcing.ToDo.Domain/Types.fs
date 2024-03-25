@@ -66,20 +66,26 @@ type CreateTaskCommand = {
     Title: string
     Description: string
     Priority: TaskPriority
+    Date: DateTimeOffset
+    AuthorId: UserId
 }
 
 type AssignTaskCommand = {
     TaskId: TaskId
     AssignedTo: UserId
+    Date: DateTimeOffset
 }
 
 type AddCommentCommand = {
     TaskId: TaskId
     Comment: Comment
+    AuthorId: UserId
+    Date: DateTimeOffset
 }
 
 type CompleteTaskCommand = {
     TaskId: TaskId
+    Date: DateTimeOffset
 }
 
 type TaskCommand =
