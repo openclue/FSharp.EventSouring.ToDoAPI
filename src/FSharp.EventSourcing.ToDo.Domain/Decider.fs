@@ -6,12 +6,12 @@ open FSharp.EventSourcing.ToDo.Domain.Functions
 module Decider =
 
     type Decider<'C, 'E, 'S, 'ERR> =
-        { decide: 'C -> 'S -> Result<'E, 'ERR>
+        { decide: 'S -> 'C -> Result<'E, 'ERR>
           evolve: 'S -> 'E -> 'S
           initialState: 'S
           isComplete: 'S -> bool }
 
-    let decide (command: TaskCommand) (state: TaskState) =
+    let decide (state: TaskState) (command: TaskCommand) =
         match command with
         | CreateTask c -> handleCreateTaskCommand c state
         | AssignTask c -> handleAssignTaskCommand c state
