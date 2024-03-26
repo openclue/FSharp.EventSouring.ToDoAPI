@@ -9,7 +9,7 @@ open Xunit
 
 let initialState = Task.decider.initialState
 
-let cmd: CreateTaskCommand =
+let createTaskCommand: CreateTaskCommand =
     { Id = TaskId <| Guid.NewGuid()
       Title = "Test task"
       Description = "This is a test task"
@@ -19,36 +19,38 @@ let cmd: CreateTaskCommand =
 
 let taskCreatedEvent: TaskEvent =
     TaskCreated
-        { Title = cmd.Title
-          Description = cmd.Description
-          Priority = cmd.Priority
-          AuthorId = cmd.AuthorId
-          TaskId = cmd.Id
-          CreatedAt = cmd.Date }
+        { Title = createTaskCommand.Title
+          Description = createTaskCommand.Description
+          Priority = createTaskCommand.Priority
+          AuthorId = createTaskCommand.AuthorId
+          TaskId = createTaskCommand.Id
+          CreatedAt = createTaskCommand.Date }
+
+let expectedState: TaskState =
+    Open
+        { Id = createTaskCommand.Id
+          Assigment = None
+          Comments = List.Empty
+          Title = createTaskCommand.Title
+          Description = createTaskCommand.Description
+          Priority = createTaskCommand.Priority
+          AuthorId = createTaskCommand.AuthorId
+          CreatedAt = createTaskCommand.Date }
+
 
 [<Fact>]
 let ``Given CreateTaskCommand When createTask Then valid event emitted`` () =
 
-    let event = createTask cmd
+    let event = createTask createTaskCommand
 
     match event with
-    | Ok e -> e |> should equal taskCreatedEvent 
+    | Ok e -> e |> should equal taskCreatedEvent
     | Error e -> failwith e
 
 
 [<Fact>]
 let ``Given TaskCreatedEvent When apply event Then valid state created`` () =
 
-    let expectedState: TaskState =
-        Open
-            { Id = cmd.Id
-              Assigment = None
-              Comments = List.Empty
-              Title = cmd.Title
-              Description = cmd.Description
-              Priority = cmd.Priority
-              AuthorId = cmd.AuthorId
-              CreatedAt = cmd.Date }
 
     let state = taskCreatedEvent |> applyEvent initialState
 
