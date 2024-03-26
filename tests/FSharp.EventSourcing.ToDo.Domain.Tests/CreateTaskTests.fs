@@ -51,7 +51,6 @@ let ``Given CreateTaskCommand When createTask Then valid event emitted`` () =
 [<Fact>]
 let ``Given TaskCreatedEvent When apply event Then valid state created`` () =
 
-
     let state = taskCreatedEvent |> applyEvent initialState
 
     state |> should equal expectedState
