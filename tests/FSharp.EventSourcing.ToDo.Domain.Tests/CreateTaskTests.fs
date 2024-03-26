@@ -29,19 +29,10 @@ let taskCreatedEvent: TaskEvent =
 [<Fact>]
 let ``Given CreateTaskCommand When createTask Then valid event emitted`` () =
 
-    let expectedEvent: TaskEvent =
-        TaskCreated
-            { Title = cmd.Title
-              Description = cmd.Description
-              Priority = cmd.Priority
-              AuthorId = cmd.AuthorId
-              TaskId = cmd.Id
-              CreatedAt = cmd.Date }
-
     let event = createTask cmd
 
     match event with
-    | Ok e -> e |> should equal expectedEvent
+    | Ok e -> e |> should equal taskCreatedEvent 
     | Error e -> failwith e
 
 
