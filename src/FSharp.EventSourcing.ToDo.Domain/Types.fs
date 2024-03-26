@@ -18,44 +18,33 @@ type TaskPriority =
     | Medium
     | High
     
-type NewTask = {
-   Id: TaskId
-   Title: string
-   Description: string
-   AuthorId: UserId
-   CreatedAt: DateTimeOffset
+type TaskAssigment = {
+    AssignedTo: UserId
+    AssignedAt: DateTimeOffset
 }
 
-type AssignedTask = {
+
+
+type OpenTask = {
     Id: TaskId
     Title: string
     Description: string
     AuthorId: UserId
-    AssignedTo: UserId
+    Assigment: TaskAssigment option
     CreatedAt: DateTimeOffset
-    AssignedAt: DateTimeOffset
     Priority: TaskPriority
     Comments: Comment list
 }
 
 type CompletedTask = {
-    Id: TaskId
-    Title: string
-    Description: string
-    AuthorId: UserId
-    AssignedTo: UserId
-    CreatedAt: DateTimeOffset
-    AssignedAt: DateTimeOffset
+    Task: OpenTask
     CompletedAt: DateTimeOffset
-    Priority: TaskPriority
-    Comments: Comment list
 }
 
-type Task =
-    | None
-    | NewTask of NewTask
-    | AssignedTask of AssignedTask
-    | CompletedTask of CompletedTask
+type TaskState =
+    | Empty
+    | Open of OpenTask
+    | Completed of CompletedTask
     
 
 //////////////////////////////////////////
@@ -105,23 +94,19 @@ type TaskCreatedEvent = {
     Description: string
     AuthorId: UserId
     CreatedAt: DateTimeOffset
+    Priority: TaskPriority
 }
 
 type TaskAssignedEvent = {
-    TaskId: TaskId
     AssignedTo: UserId
     AssignedAt: DateTimeOffset
 }
 
 type TaskCommentedEvent = {
-    TaskId: TaskId
-    AuthorId: UserId
     Comment: Comment
-    CreatedAt: DateTimeOffset
 }
 
 type TaskCompletedEvent = {
-    TaskId: TaskId
     CompletedAt: DateTimeOffset
 }
 
