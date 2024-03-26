@@ -17,8 +17,17 @@ let cmd: CreateTaskCommand =
       AuthorId = UserId <| Guid.NewGuid()
       Date = DateTimeOffset.Now }
 
+let taskCreatedEvent: TaskEvent =
+    TaskCreated
+        { Title = cmd.Title
+          Description = cmd.Description
+          Priority = cmd.Priority
+          AuthorId = cmd.AuthorId
+          TaskId = cmd.Id
+          CreatedAt = cmd.Date }
+
 [<Fact>]
-let ``Given CreateTask command When Decider decide Then valid event emitted`` () =
+let ``Given CreateTaskCommand When createTask Then valid event emitted`` () =
 
     let expectedEvent: TaskEvent =
         TaskCreated
@@ -37,7 +46,7 @@ let ``Given CreateTask command When Decider decide Then valid event emitted`` ()
 
 
 [<Fact>]
-let ``Given CreateTask command When Decider decide and evolve Then valid state created`` () =
+let ``Given TaskCreatedEvent When apply event Then valid state created`` () =
 
     let expectedState: TaskState =
         Open
@@ -50,9 +59,6 @@ let ``Given CreateTask command When Decider decide and evolve Then valid state c
               AuthorId = cmd.AuthorId
               CreatedAt = cmd.Date }
 
-    let state = cmd |> createTask |> Result.map (applyEvent initialState)
+    let state = taskCreatedEvent |> applyEvent initialState
 
-
-    match state with
-    | Ok s -> s |> should equal expectedState
-    | Error e -> failwith e
+    state |> should equal expectedState
