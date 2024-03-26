@@ -4,6 +4,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1159D1A4-2D9
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.EventSourcing.ToDo.Domain", "src\FSharp.EventSourcing.ToDo.Domain\FSharp.EventSourcing.ToDo.Domain.fsproj", "{00EBA5F6-50DE-415E-87EC-712E1D9A863E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5493BBC9-8F14-45CB-B0B1-80AAC21D7DA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
