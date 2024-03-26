@@ -4,9 +4,10 @@ open System
 open FsUnit.Xunit
 open FSharp.EventSourcing.ToDo.Domain
 open FSharp.EventSourcing.ToDo.Domain.Types
+open FSharp.EventSourcing.ToDo.Domain.Features
 open Xunit
 
-let taskDecider = Task.decider
+let initialState = Task.decider.initialState
 
 let cmd: CreateTaskCommand =
     { Id = TaskId <| Guid.NewGuid()
@@ -28,8 +29,7 @@ let ``Given CreateTask command When Decider decide Then valid event emitted`` ()
               TaskId = cmd.Id
               CreatedAt = cmd.Date }
 
-    let event =
-        TaskCommand.CreateTask cmd |> taskDecider.decide taskDecider.initialState
+    let event = createTask cmd
 
     match event with
     | Ok e -> e |> should equal expectedEvent
@@ -50,10 +50,7 @@ let ``Given CreateTask command When Decider decide and evolve Then valid state c
               AuthorId = cmd.AuthorId
               CreatedAt = cmd.Date }
 
-    let state =
-        TaskCommand.CreateTask cmd
-        |> Task.decider.decide Task.decider.initialState
-        |> Result.map (taskDecider.evolve taskDecider.initialState)
+    let state = cmd |> createTask |> Result.map (applyEvent initialState)
 
 
     match state with

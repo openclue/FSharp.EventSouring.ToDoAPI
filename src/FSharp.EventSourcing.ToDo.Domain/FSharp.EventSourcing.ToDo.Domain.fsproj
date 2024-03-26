@@ -9,6 +9,7 @@
       <Compile Include="Types.fs" />
       <Compile Include="Functions.fs" />
       <Compile Include="Decider.fs" />
+      <Compile Include="Features.fs" />
     </ItemGroup>
 
 </Project>
