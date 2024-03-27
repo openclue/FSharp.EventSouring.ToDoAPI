@@ -12,7 +12,6 @@ type Comment = {
     CreatedAt: DateTimeOffset
 }
 
-
 type TaskPriority =
     | Low
     | Medium
@@ -22,8 +21,6 @@ type TaskAssigment = {
     AssignedTo: UserId
     AssignedAt: DateTimeOffset
 }
-
-
 
 type OpenTask = {
     Id: TaskId
