@@ -6,10 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="Types.fs" />
-      <Compile Include="Functions.fs" />
-      <Compile Include="Decider.fs" />
-      <Compile Include="Features.fs" />
+        <Compile Include="Types.fs"/>
+        <Compile Include="Commands.fs" />
+        <Compile Include="Events.fs"/>
+        <Compile Include="Functions.fs"/>
+        <Compile Include="Decider.fs"/>
+        <Compile Include="Features.fs"/>
     </ItemGroup>
 
 </Project>

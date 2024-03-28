@@ -4,12 +4,14 @@ open System
 open FsUnit.Xunit
 open FSharp.EventSourcing.ToDo.Domain
 open FSharp.EventSourcing.ToDo.Domain.Types
+open FSharp.EventSourcing.ToDo.Domain.Commands
+open FSharp.EventSourcing.ToDo.Domain.Events
 open FSharp.EventSourcing.ToDo.Domain.Features
 open Xunit
 
 let initialState = Task.decider.initialState
 
-let createTaskCommand: CreateTaskCommand =
+let createTaskCommand: CreateTaskArgs =
     { Id = TaskId <| Guid.NewGuid()
       Title = "Test task"
       Description = "This is a test task"

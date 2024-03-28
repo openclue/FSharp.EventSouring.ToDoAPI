@@ -1,6 +1,7 @@
 module FSharp.EventSourcing.ToDo.Domain.Features
 
-open FSharp.EventSourcing.ToDo.Domain.Types
+open FSharp.EventSourcing.ToDo.Domain.Commands
+open FSharp.EventSourcing.ToDo.Domain.Events
 open FSharp.EventSourcing.ToDo.Domain.Task
 
 let applyEvent task (event: TaskEvent) = decider.evolve task event
@@ -12,14 +13,14 @@ let buildState (events: TaskEvent list) =
 
 let executeCommand task (cmd: TaskCommand) = cmd |> decider.decide task
 
-let createTask (cmd: CreateTaskCommand) =
+let createTask (cmd: CreateTaskArgs) =
     TaskCommand.CreateTask cmd |> executeCommand decider.initialState
 
-let assignTask (cmd: AssignTaskCommand) task =
+let assignTask (cmd: AssignTaskArgs) task =
     TaskCommand.AssignTask cmd |> executeCommand task
 
-let addComment (cmd: AddCommentCommand) task =
+let addComment (cmd: AddCommentArgs) task =
     TaskCommand.AddComment cmd |> executeCommand task
 
-let completeTask (cmd: CompleteTaskCommand) task =
+let completeTask (cmd: CompleteTaskArgs) task =
     TaskCommand.CompleteTask cmd |> executeCommand task

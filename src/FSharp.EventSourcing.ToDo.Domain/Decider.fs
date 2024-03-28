@@ -1,6 +1,8 @@
 namespace FSharp.EventSourcing.ToDo.Domain
 
 open FSharp.EventSourcing.ToDo.Domain.Types
+open FSharp.EventSourcing.ToDo.Domain.Commands
+open FSharp.EventSourcing.ToDo.Domain.Events
 open FSharp.EventSourcing.ToDo.Domain.Functions
 
 module Decider =

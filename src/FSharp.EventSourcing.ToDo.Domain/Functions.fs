@@ -2,8 +2,10 @@ module FSharp.EventSourcing.ToDo.Domain.Functions
 
 open System
 open FSharp.EventSourcing.ToDo.Domain.Types
+open FSharp.EventSourcing.ToDo.Domain.Events
+open FSharp.EventSourcing.ToDo.Domain.Commands
 
-let handleCreateTaskCommand (cmd: CreateTaskCommand) (task: TaskState) =
+let handleCreateTaskCommand (cmd: CreateTaskArgs) (task: TaskState) =
     match task with
     | Empty ->
         Ok
@@ -17,7 +19,7 @@ let handleCreateTaskCommand (cmd: CreateTaskCommand) (task: TaskState) =
     | _ -> Error "Task already exists"
 
 
-let handleAssignTaskCommand (cmd: AssignTaskCommand) (task: TaskState) =
+let handleAssignTaskCommand (cmd: AssignTaskArgs) (task: TaskState) =
     match task with
     | Completed _ -> Error "Cannot assign a completed task"
     | _ ->
@@ -26,19 +28,19 @@ let handleAssignTaskCommand (cmd: AssignTaskCommand) (task: TaskState) =
             { AssignedTo = cmd.AssignedTo
               AssignedAt = cmd.Date }
 
-let handleAddCommentCommand (cmd: AddCommentCommand) (task: TaskState) =
+let handleAddCommentCommand (cmd: AddCommentArgs) (task: TaskState) =
     match task with
     | Completed _ -> Error "Cannot comment on a completed task"
     | _ -> Ok <| TaskEvent.TaskCommented { Comment = cmd.Comment }
 
-let handleCompleteTaskCommand (cmd: CompleteTaskCommand) (task: TaskState) =
+let handleCompleteTaskCommand (cmd: CompleteTaskArgs) (task: TaskState) =
     match task with
     | Completed _ -> Error "Task is already completed"
     | Empty -> Error "Unable to complete a task that does not exist"
     | Open _ -> Ok <| TaskEvent.TaskCompleted { CompletedAt = cmd.Date }
 
 
-let createTask (event: TaskCreatedEvent) =
+let createTask (event: TaskCreatedArgs) =
     TaskState.Open
         { Id = event.TaskId
           Title = event.Title
@@ -49,7 +51,7 @@ let createTask (event: TaskCreatedEvent) =
           Priority = event.Priority
           Assigment = None }
 
-let completeTask (task: OpenTask) (event: TaskCompletedEvent) =
+let completeTask (task: OpenTask) (event: TaskCompletedArgs) =
     TaskState.Completed
         { Task = task
           CompletedAt = event.CompletedAt }
