@@ -13,20 +13,17 @@ type CreateTaskArgs = {
 }
 
 type AssignTaskArgs = {
-    TaskId: TaskId
     AssignedTo: UserId
     Date: DateTimeOffset
 }
 
 type AddCommentArgs = {
-    TaskId: TaskId
     Comment: Comment
     AuthorId: UserId
     Date: DateTimeOffset
 }
 
 type CompleteTaskArgs = {
-    TaskId: TaskId
     Date: DateTimeOffset
 }
 
